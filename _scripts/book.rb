@@ -6,8 +6,9 @@
 # todo/fix: use constant to set layout  e.g. book
 
 puts '[book] Welcome'
-puts "[book]   Dir.pwd: #{Dir.pwd}"
-puts "[book]   PAGES_DIR: #{PAGES_DIR}"
+puts "[book]   Dir.pwd:       #{Dir.pwd}"
+puts "[book]   PAGES_DIR:     #{PAGES_DIR}"
+puts "[book]   TEMPLATES_DIR: #{TEMPLATES_DIR}"
 
 
 # -- model shortcuts

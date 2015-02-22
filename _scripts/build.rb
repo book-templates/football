@@ -3,8 +3,10 @@
 #############
 # settings
 
-BUILD_DIR = "./build"
-PAGES_DIR = "#{BUILD_DIR}/pages"  # use PAGES_OUTPUT_DIR or PAGES_ROOT ??
+BUILD_DIR     = "./build"
+PAGES_DIR     = "#{BUILD_DIR}/pages"  # use PAGES_OUTPUT_DIR or PAGES_ROOT ??
+TEMPLATES_DIR = "./_templates"
+
 
 DB_CONFIG = {
   adapter:  'sqlite3',
@@ -13,7 +15,7 @@ DB_CONFIG = {
 
 
 # stdlibs
-require 'yaml'
+require 'yaml'     ## fix/check: already include in worlddb ??
 require 'erb'
 require 'pp'
 
@@ -35,7 +37,7 @@ require_relative 'book'
 ###  build book (draft version) - The Free Football World Almanac - from football.db'
 
 build_book()                # multi-page version
-build_book( inline: true )  # all-in-one-page version a.k.a. inline version
+## build_book( inline: true )  # all-in-one-page version a.k.a. inline version
 
 puts 'Done.'
 
