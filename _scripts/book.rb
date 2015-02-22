@@ -103,7 +103,7 @@ def build_book( opts={} )
   # note: use same order as table of contents
   country_count = 0
   Continent.all.each do |continent|
-    continent.countries.order(:title).each do |country|
+    continent.countries.order(:name).each do |country|
       next if country.teams.count == 0   # skip country w/o teams
 
       puts "  build country page [#{country_count+1}] #{country.key} #{country.title}..."

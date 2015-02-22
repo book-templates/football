@@ -7,7 +7,7 @@
 #### {{ continent.title }}
 {: #{{ urlify( continent.title ) }} }
 
-{% continent.countries.order(:title).each do |country|
+{% continent.countries.order(:name).each do |country|
       next if country.grounds.count == 0                     %}
 
 **{{ country.title }}**  _({{ country.grounds.count }})_{: .count}
