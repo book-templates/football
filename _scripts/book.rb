@@ -38,88 +38,94 @@ require_relative 'helpers/page'
 
 
 require_relative 'utils'
-require_relative 'pages'
 
-
-######
-# fix/todo: add to textutils
-#  allow passing in of root folder - how? new arg?
-#    or use self.create_with_path or similiar ???
-#  or use PageV2   and alias w/ Page = TextUtils::PageV2  ??
-
-class Page
-  def self.create( name, opts={} )
-    path = "#{PAGES_DIR}/#{name}.md"
-    puts "[book] create page #{name} (#{path})"
-
-    TextUtils::Page.create( path, opts ) do |page|
-      yield( page )
-    end
-  end
-
-  def self.update( name, opts={} )
-    path = "#{PAGES_DIR}/#{name}.md"
-    puts "[book] update page #{name} (#{path})"
-
-    TextUtils::Page.update( path, opts ) do |page|
-      yield( page )
-    end
-  end
-end # class Page
 
 
 
 def build_book( opts={} )
 
-  if opts[:inline].present?
-    ## generate inline (all-in-one-page) version
+  ### title: '{{ site.title }}',
 
-    Page.create( 'book',
-               frontmatter: {
-                 layout: 'book',
-                 title: '{{ site.title }}',
-                 permalink: '/book.html' } ) do |page|
-    end
+  b = BookBuilder.new( PAGES_DIR, opts )
+
+
+  ### generate table of contents (toc)
+
+  b.page( 'index', title: 'Contents',
+                   id:    'index' ) do |page|
+      page.write render_cover( opts )
+      page.write render_about( opts )
+      page.write render_toc( opts )
   end
 
 
-  build_page_toc( opts )
-  
   # note: use same order as table of contents
   event_count = 0
-  League.all.each do |league|
+  League.order(:id).each do |league|
     next if league.events.count == 0
 
     league.events.each do |event|
        puts "  build event page [#{event_count+1}] #{event.key} #{event.title}..."
-       build_page_for_event( event, opts )
+ 
+       key = event.key.gsub( '/', '_' )
+       b.page( "events/#{key}", title: "#{event.title}",
+                                id:    "#{key}" ) do |page|
+         page.write render_event( event, opts )
+       end
+       ## b.divider()  ## -- todo: add for inline version
        event_count += 1
     end
   end
 
-  ## build_page_events( opts )
+  ## ### generate events index
+  ##  b.page( 'events', title: 'Events',
+  ##                    id:    'events' ) do |page|
+  ##    page.write render_events( opts )
+  ##  end
 
 
   # note: use same order as table of contents
   country_count = 0
-  Continent.all.each do |continent|
+  Continent.order(:id).each do |continent|
     continent.countries.order(:name).each do |country|
       next if country.teams.count == 0   # skip country w/o teams
 
       puts "  build country page [#{country_count+1}] #{country.key} #{country.title}..."
-      build_page_for_country( country, opts )
+
+      path = country.to_path
+      puts "    path=#{path}"
+      b.page( "teams/#{path}", title: "#{country.title} (#{country.code})",
+                               id:    "#{country.key}" ) do |page|
+        page.write render_country( country, opts )
+      end
+
       country_count += 1
     end
   end
 
 
-  build_page_grounds( opts )
+  b.page( 'stadiums', title: 'Stadiums',
+                      id:    'stadiums' ) do |page|
+    page.write render_grounds( opts )
+  end
 
-  build_page_national_teams_idx( opts )
-  build_page_clubs_idx( opts )
 
-  build_page_back( opts )
+  ### generate national teams a-z index
+  b.page( 'national-teams', title: 'National Teams A-Z Index',
+                            id:    'national-teams' ) do |page|
+    page.write render_national_teams_idx( opts )
+  end
 
+  ### generate teams a-z index
+  b.page( 'clubs', title: 'Clubs A-Z Index',
+                   id:    'clubs' ) do |page|
+    page.write render_clubs_idx( opts )
+  end
+
+  b.page( 'back', title: 'Back',
+                  id:    'back' ) do |page|
+    page.write render_back( opts )
+  end
 
 end # method build_book
 

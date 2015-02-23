@@ -14,14 +14,9 @@ DB_CONFIG = {
 }
 
 
-# stdlibs
-require 'yaml'     ## fix/check: already include in worlddb ??
-require 'erb'
-require 'pp'
-
 # 3rd party gems
 require 'worlddb'
-require 'sportdb'
+require 'sportdb'  ## will include worlddb - remove require worlddb
 
 ### require 'logutils/activerecord'   ## already included in worlddb ??
 
