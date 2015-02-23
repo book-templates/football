@@ -20,6 +20,7 @@ require 'sportdb'  ## will include worlddb - remove require worlddb
 
 ### require 'logutils/activerecord'   ## already included in worlddb ??
 
+require 'hybook'
 
 
 pp DB_CONFIG
