@@ -5,6 +5,11 @@
 # todo/fix: use constant to set  ./_pages   - output (root) folder for generated pages
 # todo/fix: use constant to set layout  e.g. book
 
+
+## quick fix/hack for settings globals; fix: use config hash etc.
+PAGES_DIR     = $pages_dir      if defined?( $pages_dir )
+TEMPLATES_DIR = $templates_dir  if defined?( $templates_dir )
+
 puts '[book] Welcome'
 puts "[book]   Dir.pwd:       #{Dir.pwd}"
 puts "[book]   PAGES_DIR:     #{PAGES_DIR}"
