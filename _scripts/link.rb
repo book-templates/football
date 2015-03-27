@@ -1,5 +1,9 @@
+# encoding: utf-8
+
 ###############################
 # link helpers
+
+module HybookHelper
 
 
 def link_to_event( event, opts={} )
@@ -44,3 +48,5 @@ def link_to_team( team, opts={} )
   link_to title, href
 end
 
+
+end # module HybookHelper

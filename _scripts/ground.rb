@@ -1,5 +1,9 @@
 # encoding: utf-8
 
+
+module HybookHelper
+
+
 def ground_title( ground )   # ground title plus synonyms if present
   
   #### fix: use generic
@@ -14,3 +18,7 @@ def ground_title( ground )   # ground title plus synonyms if present
   end
   buf
 end
+
+
+end # module HybookHelper
+

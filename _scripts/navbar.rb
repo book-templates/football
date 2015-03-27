@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+module HybookHelper
+
 ##########################
 # part helpers
 
@@ -59,3 +61,6 @@ def cities_navbar_for_region( region )
     buf
   end
 end
+
+
+end # module HybookHelper

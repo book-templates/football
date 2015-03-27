@@ -1,5 +1,8 @@
 # Todos
 
+### style.css
+
+- [ ] cleanup - use scss w/ variables
 
 ### world.db
 

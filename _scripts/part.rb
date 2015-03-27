@@ -1,9 +1,10 @@
 # encoding: utf-8
 
+
 ##########################
 # part helpers
 
-
+module HybookHelper
 
 def render_world_tree_for( o, opts={} )
 
@@ -82,18 +83,22 @@ end
 # - allow check for if is collection or single record - how??
 
 def render_ground( ground, opts={} )
-  tmpl       = File.read_utf8( "#{TEMPLATES_DIR}/includes/_ground.md" )
-  render_erb_template( tmpl, binding )
+  render 'includes/_ground', opts, ground: ground
+  ## tmpl       = File.read_utf8( "#{TEMPLATES_DIR}/includes/_ground.md" )
+  ## render_erb_template( tmpl, binding )
 end
 
 def render_team( team, opts={} )
-  tmpl       = File.read_utf8( "#{TEMPLATES_DIR}/includes/_team.md" )
-  render_erb_template( tmpl, binding )
+  render 'includes/_team', opts, team: team
+  ## tmpl       = File.read_utf8( "#{TEMPLATES_DIR}/includes/_team.md" )
+  ## render_erb_template( tmpl, binding )
 end
 
 def render_team_idx( team, opts={} )
-  tmpl       = File.read_utf8( "#{TEMPLATES_DIR}/includes/_team-idx.md" )
-  render_erb_template( tmpl, binding )
+  render 'includes/_team-idx', opts, team: team
+  ## tmpl       = File.read_utf8( "#{TEMPLATES_DIR}/includes/_team-idx.md" )
+  ## render_erb_template( tmpl, binding )
 end
 
 
+end # module HybookHelper

@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+module HybookHelper
+
 def team_title( team )   # team title plus synonyms if present
 
   #### fix: use generic
@@ -15,3 +17,5 @@ def team_title( team )   # team title plus synonyms if present
   end
   buf
 end
+
+end # module HybookHelper
